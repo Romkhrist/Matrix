@@ -14,11 +14,11 @@ $(TARGET): $(OBJS)
 	
 $(OBJS): $(TARGET).h
 
-install: $(TARGET)
+install:
 	@install -D -m 744 $^ $(INSTALL_PATH)/$^
 	@$(MAKE) clean
 		
-uninstall: $(TARGET)
+uninstall:
 	@rm -rf $(INSTALL_PATH)/$^
 	
 clean:
