@@ -75,14 +75,14 @@ template<typename T>
 Matrix<T>::Matrix(const std::size_t& rows, const std::size_t& columns)
     :rows(rows), columns(columns)
 {
-    if(!rows || !columns)
+    if (!rows || !columns)
     {
         throw "Rows and columns must be greater than zero!";
     } 
     
     arr = new T*[rows];
     
-    for(std::size_t i = 0; i < rows; i++)
+    for (std::size_t i = 0; i < rows; i++)
     {
         arr[i] = new T[columns]{0};
     }
@@ -94,10 +94,10 @@ Matrix<T>::Matrix(const Matrix<T>& _matrix)
 {
     arr = new T*[rows];
     
-    for(std::size_t i = 0; i < rows; i++)
+    for (std::size_t i = 0; i < rows; i++)
     {
         arr[i] = new T[columns];
-        for(std::size_t j = 0; j < columns; j++)
+        for (std::size_t j = 0; j < columns; j++)
         {
             arr[i][j] = _matrix.arr[i][j];
         }
@@ -124,9 +124,9 @@ const Matrix<T> Matrix<T>::transpose() const
 {
     Matrix<T> tmp(columns, rows);
     
-    for(std::size_t i = 0; i < rows; i++)
+    for (std::size_t i = 0; i < rows; i++)
     {
-        for(std::size_t j = 0; j < columns; j++)
+        for (std::size_t j = 0; j < columns; j++)
         {
             tmp.arr[j][i] = arr[i][j];
         }
@@ -147,14 +147,14 @@ const Matrix<T> Matrix<T>::minor(std::size_t& const std::size_t& i, const std::s
 template<typename T>
 T Matrix<T>::trace() const
 {
-    if(!isSquare())
-	{
-		throw "Matrix is not square!";
-	}
+    if (!isSquare())
+    {
+         throw "Matrix is not square!";
+    }
 	
     T tmp = 0;
     
-    for(std::size_t i = 0; i < rows; i++)
+    for (std::size_t i = 0; i < rows; i++)
     {
         tmp += arr[i][i];
     }
