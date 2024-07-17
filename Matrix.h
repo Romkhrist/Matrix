@@ -177,12 +177,12 @@ inline bool Matrix<T>::isTraceless() const
 template<typename T>
 void Matrix<T>::clear()
 {
-    if(!arr)
+    if (arr == nullptr)
     {
         return;
     }
     
-    for(std::size_t i = 0; i < rows; i++)
+    for (std::size_t i = 0; i < rows; i++)
     {
         delete[] arr[i];
     }
@@ -200,11 +200,11 @@ inline std::size_t Matrix<T>::length() const
 template<typename T>
 inline std::size_t Matrix<T>::length(const std::size_t& dimension) const
 {
-    if(dimension == 0)
+    if (dimension == 0)
     {
         return rows;
     }
-    else if(dimension == 1)
+    else if (dimension == 1)
     {
         return columns;
     }
@@ -221,7 +221,7 @@ inline T& Matrix<T>::operator()(const std::size_t& row, const std::size_t& colum
 template<typename T>
 const Matrix<T> Matrix<T>::operator+(const Matrix<T>& _matrix) const
 {
-    if((rows != _matrix.rows) || (columns != _matrix.columns))
+    if ((rows != _matrix.rows) || (columns != _matrix.columns))
     {
         throw "The sizes of the matrices don't match";
         
@@ -229,9 +229,9 @@ const Matrix<T> Matrix<T>::operator+(const Matrix<T>& _matrix) const
     
     Matrix<T> tmp(rows, columns);
         
-    for(std::size_t i = 0; i < rows; i++)
+    for (std::size_t i = 0; i < rows; i++)
     {
-        for(std::size_t j = 0; j < columns; j++)
+        for (std::size_t j = 0; j < columns; j++)
         {
             tmp.arr[i][j] = arr[i][j] + _matrix.arr[i][j];
         }
@@ -243,16 +243,16 @@ const Matrix<T> Matrix<T>::operator+(const Matrix<T>& _matrix) const
 template<typename T>
 const Matrix<T> Matrix<T>::operator-(const Matrix<T>& _matrix) const
 {
-    if((rows != _matrix.rows) || (columns != _matrix.columns))
+    if ((rows != _matrix.rows) || (columns != _matrix.columns))
     {
         throw "The sizes of the matrices don't match";
     }
     
     Matrix<T> tmp(rows, columns);
         
-    for(std::size_t i = 0; i < rows; i++)
+    for (std::size_t i = 0; i < rows; i++)
     {
-        for(std::size_t j = 0; j < columns; j++)
+        for (std::size_t j = 0; j < columns; j++)
         {
             tmp.arr[i][j] = arr[i][j] - _matrix.arr[i][j];
         }
@@ -264,19 +264,19 @@ const Matrix<T> Matrix<T>::operator-(const Matrix<T>& _matrix) const
 template<typename T>
 const Matrix<T> Matrix<T>::operator*(const Matrix<T>& _matrix) const
 {
-    if(columns != _matrix.rows)
+    if (columns != _matrix.rows)
     {
         throw "Wrong size for matrix multilplication"; 
     }
     
     Matrix<T> tmp(rows, _matrix.columns);
         
-    for(std::size_t i = 0 ; i < rows; i++)
+    for (std::size_t i = 0 ; i < rows; i++)
     {
-        for(std::size_t j = 0 ; j < columns; j++)
+        for (std::size_t j = 0 ; j < columns; j++)
         {
             tmp.arr[i][j] = 0;
-            for(std::size_t k = 0 ; k < columns; k++)
+            for (std::size_t k = 0 ; k < columns; k++)
             {
                 tmp.arr[i][j] += arr[i][k] * _matrix.arr[k][j];                 
             }
@@ -291,9 +291,9 @@ const Matrix<T> Matrix<T>::operator*(const T& value) const
 {   
     Matrix<T> tmp(*this);
     
-    for(std::size_t i = 0; i < rows; i++)
+    for (std::size_t i = 0; i < rows; i++)
     {
-        for(std::size_t j = 0; j < columns; j++)
+        for (std::size_t j = 0; j < columns; j++)
         {
             tmp.arr[i][j] *= value;
         }
@@ -305,7 +305,7 @@ const Matrix<T> Matrix<T>::operator*(const T& value) const
 template<typename T>
 Matrix<T>& Matrix<T>::operator=(const Matrix<T>& _matrix)
 {
-    if(this == &_matrix)
+    if (this == &_matrix)
     {
         return *this;
     }
@@ -316,7 +316,7 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& _matrix)
     columns = _matrix.columns;
     
     arr = new T*[rows];
-    for(std::size_t i = 0; i < rows; i++)
+    for (std::size_t i = 0; i < rows; i++)
     {
         arr[i] = new T[columns];
         memmove(arr[i], _matrix.arr[i], sizeof(T) * columns);
@@ -328,7 +328,7 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& _matrix)
 template<typename T>
 Matrix<T>& Matrix<T>::operator=(Matrix<T>&& _matrix)
 {
-    if(this == &_matrix)
+    if (this == &_matrix)
     {
         return *this;
     }
@@ -379,14 +379,14 @@ const Matrix<T1> operator*(const T1& value, const Matrix<T1>& _matrix)
 template<typename T>
 std::ostream& operator<<(std::ostream& out, const Matrix<T>& _matrix)
 {
-    if(!_matrix.arr)
+    if (!_matrix.arr)
     {
         return out;
     }
     
-    for(std::size_t i = 0; i < _matrix.rows; i++)
+    for (std::size_t i = 0; i < _matrix.rows; i++)
     {
-        for(std::size_t j = 0; j < _matrix.columns; j++)
+        for (std::size_t j = 0; j < _matrix.columns; j++)
         {
             out << _matrix.arr[i][j] << " ";
         }
